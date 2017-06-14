@@ -107,6 +107,7 @@ If you have read and tried the above and you are still having problems, then, pl
 * Description of features on CSS box;
 * Remove support to Firefox 2 and 3 versions;
 * Automatic backgrounds updates;
+* Translate to portuguese
 
 = 1.4.5 =
 * Bugfix
