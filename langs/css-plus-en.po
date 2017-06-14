@@ -1,0 +1,78 @@
+# Copyright (C) 2012 CSS Plus
+# This file is distributed under the same license as the CSS Plus package.
+msgid ""
+msgstr ""
+"Project-Id-Version: CSS Plus 1.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/css-plus\n"
+"POT-Creation-Date: 2012-06-21 18:58:46+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-06-21 17:37-0300\n"
+"Last-Translator: Paulo Calixto <paulinho.calixto@hotmail.com>\n"
+"Language-Team: Paulo E. Calixto <paulinho.calixto@ymail.com>\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_c\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-SearchPath-0: css-plus\n"
+
+#: css-plus/css-plus.php:31
+msgid "I will not be translated!"
+msgstr "No voy a ser traducido!"
+
+#: css-plus/css-plus.php:98
+msgid "CSS"
+msgstr "CSS"
+
+#: css-plus/css-plus.php:108
+msgid "$ Contribute"
+msgstr "$ Contribuye"
+
+#: css-plus/css-plus.php:152
+msgid "<h3>Welcome to CSS Plus </h3>"
+msgstr "<h3>Bienvenido a CSS Plus</h3>"
+
+#: css-plus/css-plus.php:153
+msgid "<p>It&rsquo;ll be much easier now for you to edit your CSS.</p>"
+msgstr "<p>Será mucho más fácil crear sites ahora que se puede editar su código CSS.</p>"
+
+#: css-plus/css-plus.php:154
+msgid "<p>First, <strong>create</strong> or choose a page, post or custom post for <strong>edit.</strong></p>"
+msgstr "<p>Primero, debe <strong>crear</strong> o elegir una página, post o post personalizado para su <strong>edición.</strong></p>"
+
+#: css-plus/css-plus.php:180
+msgid "<h3>That&rsquo;s enough edit. </h3>"
+msgstr "<h3>Eso es suficiente editar.</h3>"
+
+#: css-plus/css-plus.php:181
+msgid "<p>Edit the classes of this file in box, then <strong>update</strong> the post.</p>"
+msgstr "<p>Edite las clases de este archivo en el box, después sólo <strong>actualizar</strong> el post.</p>"
+
+#: css-plus/css-plus.php:212
+msgid "<h3>See how easy that is? </h3>"
+msgstr "<h3>Vea lo fácil que es?</h3>"
+
+#: css-plus/css-plus.php:213
+msgid "<p>Now that you&rsquo;ve learned how to use the plugin, feel free to put your creativity into practice</p><p>If in doubt, consult our <a href=\"http://code.google.com/p/css-plus-wordpress-plugin/wiki/FAQ\">online help</a>.</p>"
+msgstr "<p>Ahora que ya has aprendido a utilizar el plugin, no dude en poner en práctica su creatividad</p><p><a href=\"http://code.google.com/p/css-plus-wordpress-plugin/wiki/FAQ\">online help</a>.</p>"
+
+#. Plugin Name of the plugin/theme
+msgid "CSS Plus"
+msgstr "CSS Plus"
+
+#. Plugin URI of the plugin/theme
+msgid "http://pauloklixto.com/2012/04/20/css-plus-wordpress-plugin/"
+msgstr "http://pauloklixto.com/2012/04/20/css-plus-wordpress-plugin/"
+
+#. Description of the plugin/theme
+msgid "Add CSS box in your pages, posts or custom posts."
+msgstr "Añade una caja de CSS en tus páginas, posts o posts personalizados."
+
+#. Author of the plugin/theme
+msgid "Paulo E. Calixto"
+msgstr "Paulo E. Calixto"
+
+#. Author URI of the plugin/theme
+msgid "http://pauloklixto.com"
+msgstr "http://pauloklixto.com"
+

@@ -1,0 +1,13 @@
+/*Menu de Opções*/
+#css_plus_pluginid .inside, #css_plus_pluginid .inside p {margin: 0;padding: 0;}
+span.donate {float: right;margin-right: 10px;color: #0a5b21;font-weight: bold;margin-top: -23px;}
+span.donate:hover {color: #139237;}
+
+/*Textarea*//*
+div.CodeMirror {background: #fff;margin:2px;border:1px solid #b3b3b3;font-size: 13px;font-family: 'Cagliostro', sans-serif;box-shadow: inset 0 -10px 20px -5px #949494;}
+.cm-s-default span.cm-tag {font-weight: bold;color: #051a1f;}
+.cm-s-default span.cm-string-2{color:#0b2a31;font-weight: bold;}
+.cm-s-default span.cm-variable{color: #095062;}
+.cm-s-default span.cm-atom{color: #a10b52;}
+.cm-s-default span.cm-number{color: #a25008;}
+.cm-s-default span.cm-string{color: #31b5f3;}*/
