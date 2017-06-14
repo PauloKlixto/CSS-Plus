@@ -185,7 +185,7 @@ $CssPlus = new CssPlus; {
 	function css_plus_plugin_func( $post_type ) { if ( ! current_user_can( 'administrator' ) ) return;
 	?>
 		<p>
-	  		<textarea id="code" name="css_code" placeholder="Insert your CSS code here"><?php echo get_post_meta( $post_type->ID, '_css_code', true ); ?></textarea>
+	  		<textarea id="code" name="css_code" placeholder="<?php echo __('Insert your CSS code here', 'css-plus'); ?>"><?php echo get_post_meta( $post_type->ID, '_css_code', true ); ?></textarea>
 	  		<script type="text/javascript">
 				  var editor = CodeMirror.fromTextArea(
 				  	document.getElementById("code"), {  
