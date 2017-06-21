@@ -1,4 +1,6 @@
 === CSS Plus ===
+
+[![Join the chat at https://gitter.im/CSS-Plus/Lobby](https://badges.gitter.im/CSS-Plus/Lobby.svg)](https://gitter.im/CSS-Plus/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Contributors: paulo4lzn 
 Tags: admin, posts, page, css, style, stylesheet, stylesheets, personal style, frontend, front, html style, best css, plus, specif page, specif post, css post, custom css, css editor
 Requires at least: 3.0
