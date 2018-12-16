@@ -26,17 +26,128 @@ Domain Path: /langs
 */
 
 class CssPlus {
+
 	const Version = '1.5.1';
 
 	const CodeMirrorVersion = '5.26.0';
 
+	const metaKey = '_css_code';
+
+	/**
+	 * CssPlus constructor.
+	 *
+	 * This function registers the hooks and filters used within the plugin.
+	 */
 	public function __construct() {
 		add_action('init', [$this, 'load_plugin_textdomain']);
+		add_action('save_post', [$this, 'save_post'], 10, 2);
+		add_action('add_meta_boxes', [$this, 'add_meta_box']);
+		add_action('wp_head', [$this, 'output']);
 	}
 
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain('css-plus', false, basename(__DIR__) . '/langs');
 	}
+
+	/**
+	 * Save the CSS code for the post being saved.
+	 *
+	 * @param $post_id int
+	 * @param $post WP_Post
+	 */
+	public function save_post($post_id, $post) {
+		// If the function is called by the WP auto-save feature, nothing must be saved.
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return;
+		}
+
+		// Verify that this request came properly from the WP Admin dashboard.
+		if (!isset($_POST['css_code']) || !wp_verify_nonce($_POST['css_code_nonce'], plugin_basename(__FILE__))) {
+			return;
+		}
+
+		// Check for authorization.
+		if ($post->post_type === 'page') {
+			if (!current_user_can('edit_page', $post_id)) {
+				return;
+			}
+		} else {
+			if (!current_user_can('edit_post', $post_id)) {
+				return;
+			}
+		}
+
+		if (isset($_POST['css_code'])) {
+			update_post_meta($post_id, CssPlus::metaKey, strip_tags($_POST['css_code']));
+		}
+	}
+
+	public function add_meta_box() {
+		add_meta_box(
+			'css_plus_pluginid',
+			__('CSS Editor', 'css-plus'),
+			[$this, 'meta_box'],
+			'',
+			'advanced',
+			'high'
+		);
+	}
+
+	/**
+	 * Construct the meta box with the code editor.
+	 *
+	 * @param $post WP_Post object
+	 */
+	public function meta_box($post) {
+		wp_nonce_field(plugin_basename(__FILE__), 'css_code_nonce');
+		$postCSS = get_post_meta($post->ID, CssPlus::metaKey, true); ?>
+		<textarea id="css-plus-code" name="css_code" placeholder="<?php _e('Insert your CSS code here', 'css-plus'); ?>"><?php echo $postCSS; ?></textarea>
+		<script>
+			(function() {
+				const editor = CodeMirror.fromTextArea(document.getElementById("css-plus-code"), {
+					keyMap: "sublime",
+					lineNumbers: true,
+					fullscreen: true,
+					mode: "text/x-scss",
+					theme: "solarized dark",
+					lineWrapping: true,
+					onCursorActivity: function() {
+						editor.setLineClass(hlLine, null, null);
+						hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
+					}
+				});
+				var hlLine = editor.addLineClass(0, "background", "activeline");
+				editor.on("cursorActivity", function() {
+					var cur = editor.getLineHandle(editor.getCursor().line);
+					if (cur != hlLine) {
+						editor.removeLineClass(hlLine, "background", "activeline");
+						hlLine = editor.addLineClass(cur, "background", "activeline");
+					}
+				});
+				var number = jQuery(".CodeMirror-wrap").length;
+				if(number > 1){
+					jQuery(".CodeMirror-wrap").hide();
+					jQuery(".CodeMirror-wrap:first").show();
+				}
+			})();
+		</script>
+		<p class="more"><?php echo __('Press Crtl+f or CMD+f to search.', 'css-plus'); ?></p>
+		<?php
+	}
+
+	/**
+	 * Print the CSS to the <head> if there is anything.
+	 */
+	public function output() {
+		global $post;
+		if (!empty($post)) {
+			$css = get_post_meta($post->ID, CssPlus::metaKey, true);
+			if ($css) {
+				echo '<style>' . $css . '</style>';
+			}
+		}
+	}
+
 }
 
 $CssPlus = new CssPlus;
@@ -143,70 +254,3 @@ if (trim($pagenow) === 'post.php' || trim($pagenow) === 'post-new.php') {
 
 }
 
-function css_plus_plugin() {
-	add_meta_box(
-		'css_plus_pluginid',
-		__('CSS Editor', 'css-plus'),
-		'css_plus_plugin_func',
-		'',
-		'advanced',
-		'high'
-	);
-}
-add_action('add_meta_boxes', 'css_plus_plugin');
-
-function css_plus_plugin_func($post_type) {
-	if (!current_user_can('administrator')) {
-		return;
-	} ?>
-	<textarea id="css-plus-code" name="css_code" placeholder="<?php _e('Insert your CSS code here', 'css-plus'); ?>"><?php echo get_post_meta($post_type->ID, '_css_code', true); ?></textarea>
-	<script>
-		(function() {
-			const editor = CodeMirror.fromTextArea(document.getElementById("css-plus-code"), {
-				keyMap: "sublime",
-				lineNumbers: true,
-				fullscreen: true,
-				mode: "text/x-scss",
-				theme: "solarized dark",
-				lineWrapping: true,
-				onCursorActivity: function() {
-					editor.setLineClass(hlLine, null, null);
-					hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
-				}
-			});
-			var hlLine = editor.addLineClass(0, "background", "activeline");
-			editor.on("cursorActivity", function() {
-				var cur = editor.getLineHandle(editor.getCursor().line);
-				if (cur != hlLine) {
-					editor.removeLineClass(hlLine, "background", "activeline");
-					hlLine = editor.addLineClass(cur, "background", "activeline");
-				}
-			});
-			var number = jQuery(".CodeMirror-wrap").length;
-			if(number > 1){
-				jQuery(".CodeMirror-wrap").hide();
-				jQuery(".CodeMirror-wrap:first").show();
-			}
-		})();
-	</script>
-	<p class="more"><?php echo __('Press Crtl+f or CMD+f to search.', 'css-plus'); ?></p>
-	<?php
-}
-
-function css_plus_plugin_save_post($post_id, $post_type) {
-	if (isset($_POST['css_code'])) {
-		update_post_meta($post_id, '_css_code', strip_tags($_POST['css_code']));
-	}
-}
-add_action('save_post', 'css_plus_plugin_save_post', 10, 2);
-
-function css_plus_output() {
-	global $post;
-	if (!empty($post)) {
-		$css = get_post_meta($post->ID, '_css_code', true);
-		if ($css) {
-			echo '<style>' . $css . '</style>';
-		}
-	}
-}
-add_action('wp_head', 'css_plus_output');
