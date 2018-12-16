@@ -1,9 +1,9 @@
 === CSS Plus ===
-Contributors: paulo4lzn 
+Contributors: paulo4lzn
 Tags: admin, posts, page, css, style, stylesheet, stylesheets, personal style, frontend, front, html style, best css, plus, specif page, specif post, css post, custom css, css editor
 Requires at least: 3.0
-Tested up to: 4.8
-Stable tag: 1.4.5
+Tested up to: 4.9.8
+Stable tag: 1.5.2
 
 CSS Plus is a plugin that adds a css editor in all posts, pages and custom posts.
 
@@ -99,6 +99,10 @@ If you have read and tried the above and you are still having problems, then, pl
 
 == Change Log ==
 
+= 1.5.2 =
+* Fix a couple security loopholes.
+* Refactor the core PHP code to use classes, reducing chances of global function identifier conflicts.
+
 = 1.5 =
 * Sublime Text bindings
 * Clean Code;
@@ -142,7 +146,7 @@ If you have read and tried the above and you are still having problems, then, pl
 * New design with with emphasis in selectors;
 * Editor more strong;
 
-= 1.3.2 = 
+= 1.3.2 =
 * Addressed some security issues and fixed 2 bugs;
 * Editor box updated.
 
@@ -160,7 +164,7 @@ If you have read and tried the above and you are still having problems, then, pl
 * Attributes and properties division;
 * Portuguese translation.
 * Spanish translation.
-   
+
 = 1.2 =
 * First version final.
 * WP Pointer implementation.
