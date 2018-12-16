@@ -1,9 +1,11 @@
-/*Menu de Opções*/
-#css_plus_pluginid .inside, #css_plus_pluginid .inside p, #css_plus_pluginid .menu {margin: 0;padding: 0;}
+#css_plus_pluginid .inside, #css_plus_pluginid .inside p, #css_plus_pluginid .menu {
+	margin: 0;
+	padding: 0;
+}
 .CodeMirror {
 	border: 1px solid #ACACAC;
-    border-radius: 0;
-    box-shadow: none !important;
+	border-radius: 0;
+	box-shadow: none !important;
 }
 .CodeMirror-dialog {
 	background: #586E75;
@@ -11,5 +13,5 @@
 	border-bottom: 1px solid #586E75;
 }
 #css_plus_pluginid .inside .more {
-	padding: 5px;
+	padding: 5px 8px;
 }
