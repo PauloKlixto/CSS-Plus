@@ -1,4 +1,4 @@
-#css_plus_pluginid .inside, #css_plus_pluginid .inside p, #css_plus_pluginid .menu {
+#css_plus_plugin .inside, #css_plus_plugin .inside p, #css_plus_plugin .menu {
 	margin: 0;
 	padding: 0;
 }
@@ -12,6 +12,6 @@
 	color: #fff;
 	border-bottom: 1px solid #586E75;
 }
-#css_plus_pluginid .inside .more {
+#css_plus_plugin .inside .more {
 	padding: 5px 8px;
 }

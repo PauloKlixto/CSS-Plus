@@ -9,21 +9,21 @@ Author URI: http://pauloklixto.com
 License: GPL2
 Text Domain: css-plus
 Domain Path: /langs
-
-	Copyright 2012  Paulo E. Calixto  (email : klixto@outlook.com)
-
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License, version 2, as
-	published by the Free Software Foundation.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
 */
+
+// Copyright 2012  Paulo E. Calixto  (email : klixto@outlook.com)
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License, version 2, as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
 
 class CssPlus {
 
@@ -39,14 +39,33 @@ class CssPlus {
 	 * This function registers the hooks and filters used within the plugin.
 	 */
 	public function __construct() {
-		add_action('init', [$this, 'load_plugin_textdomain']);
+		add_action('init', [$this, 'init']);
+		add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts']);
 		add_action('save_post', [$this, 'save_post'], 10, 2);
 		add_action('add_meta_boxes', [$this, 'add_meta_box']);
 		add_action('wp_head', [$this, 'output']);
 	}
 
-	public function load_plugin_textdomain() {
+	public function init() {
 		load_plugin_textdomain('css-plus', false, basename(__DIR__) . '/langs');
+	}
+
+	public function admin_enqueue_scripts() {
+		wp_enqueue_script('css-plus-js', plugins_url('js/codemirror.js', __FILE__), [], CssPlus::CodeMirrorVersion);
+		wp_enqueue_script('css-plus-css', plugins_url('js/css.js', __FILE__));
+		wp_enqueue_script('css-plus-dialog', plugins_url('js/dialog.js', __FILE__));
+		wp_enqueue_script('css-plus-fullscreen', plugins_url('js/fullscreen.js', __FILE__));
+		wp_enqueue_script('css-plus-placeholder', plugins_url('js/placeholder.js', __FILE__));
+		wp_enqueue_script('css-plus-dft', plugins_url('js/search.js', __FILE__));
+		wp_enqueue_script('css-plus-searchcursor', plugins_url('js/searchcursor.js', __FILE__));
+		wp_enqueue_script('css-plus-sublime', plugins_url('js/sublime.js', __FILE__));
+		wp_enqueue_script('css-plus-trailingspace', plugins_url('js/trailingspace.js', __FILE__));
+
+		wp_enqueue_style('css-plus-codemirror', plugins_url('css/codemirror.css', __FILE__));
+		wp_enqueue_style('css-plus-dialog-style', plugins_url('css/dialog.css', __FILE__));
+		wp_enqueue_style('css-plus-fullscreen-style', plugins_url('css/fullscreen.css', __FILE__));
+		wp_enqueue_style('css-plus-solarized', plugins_url('css/solarized.css', __FILE__));
+		wp_enqueue_style('css-plus-style', plugins_url('util/style.css', __FILE__), [], CssPlus::Version);
 	}
 
 	/**
@@ -84,7 +103,7 @@ class CssPlus {
 
 	public function add_meta_box() {
 		add_meta_box(
-			'css_plus_pluginid',
+			'css_plus_plugin',
 			__('CSS Editor', 'css-plus'),
 			[$this, 'meta_box'],
 			'',
@@ -116,19 +135,7 @@ class CssPlus {
 						hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
 					}
 				});
-				var hlLine = editor.addLineClass(0, "background", "activeline");
-				editor.on("cursorActivity", function() {
-					var cur = editor.getLineHandle(editor.getCursor().line);
-					if (cur != hlLine) {
-						editor.removeLineClass(hlLine, "background", "activeline");
-						hlLine = editor.addLineClass(cur, "background", "activeline");
-					}
-				});
-				var number = jQuery(".CodeMirror-wrap").length;
-				if(number > 1){
-					jQuery(".CodeMirror-wrap").hide();
-					jQuery(".CodeMirror-wrap:first").show();
-				}
+				editor.addLineClass(0, "background", "activeline");
 			})();
 		</script>
 		<p class="more"><?php echo __('Press Crtl+f or CMD+f to search.', 'css-plus'); ?></p>
@@ -151,106 +158,4 @@ class CssPlus {
 }
 
 $CssPlus = new CssPlus;
-
-if (trim($pagenow) === 'post.php' || trim($pagenow) === 'post-new.php') {
-	// CodeMirror Version 5.26.0
-	// Design 1.4
-
-	// JavaScript
-	function setcss_scripts_method() {
-		wp_deregister_script('setCss');
-		wp_register_script('setCss', plugins_url('js/codemirror.js', __FILE__), [], CssPlus::CodeMirrorVersion);
-		wp_enqueue_script('setCss');
-	}
-	add_action('admin_enqueue_scripts', 'setcss_scripts_method');
-
-	function sublime_scripts_method() {
-		wp_deregister_script('sublime');
-		wp_register_script('sublime', plugins_url('js/sublime.js', __FILE__));
-		wp_enqueue_script('sublime');
-	}
-	add_action('admin_enqueue_scripts', 'sublime_scripts_method');
-
-	function dialog_scripts_method() {
-		wp_deregister_script('dialog');
-		wp_register_script('dialog', plugins_url('js/dialog.js', __FILE__));
-		wp_enqueue_script('dialog');
-	}
-	add_action('admin_enqueue_scripts', 'dialog_scripts_method');
-
-	function setcssDft_scripts_method() {
-		wp_deregister_script('setcssDft');
-		wp_register_script('setcssDft', plugins_url('js/search.js', __FILE__));
-		wp_enqueue_script('setcssDft');
-	}
-	add_action('admin_enqueue_scripts', 'setcssDft_scripts_method');
-
-	function searchcursor_scripts_method() {
-		wp_deregister_script('searchcursor');
-		wp_register_script('searchcursor', plugins_url('js/searchcursor.js', __FILE__));
-		wp_enqueue_script('searchcursor');
-	}
-	add_action('admin_enqueue_scripts', 'searchcursor_scripts_method');
-
-	function placeholder_scripts_method() {
-		wp_deregister_script('placeholder');
-		wp_register_script('placeholder', plugins_url('js/placeholder.js', __FILE__));
-		wp_enqueue_script('placeholder');
-	}
-	add_action('admin_enqueue_scripts', 'placeholder_scripts_method');
-
-	function fullscreen_scripts_method() {
-		wp_deregister_script('fullscreen');
-		wp_register_script('fullscreen', plugins_url('js/fullscreen.js', __FILE__));
-		wp_enqueue_script('fullscreen');
-	}
-	add_action('admin_enqueue_scripts', 'fullscreen_scripts_method');
-
-	function trailingspace_scripts_method() {
-		wp_deregister_script('trailingspace');
-		wp_register_script('trailingspace', plugins_url('js/trailingspace.js', __FILE__));
-		wp_enqueue_script('trailingspace');
-	}
-	add_action('admin_enqueue_scripts', 'trailingspace_scripts_method');
-
-	function setcssInput_scripts_method() {
-		wp_deregister_script('setCssInput');
-		wp_register_script('setCssInput', plugins_url('js/css.js', __FILE__));
-		wp_enqueue_script('setCssInput');
-	}
-	add_action('admin_enqueue_scripts', 'setcssInput_scripts_method');
-
-	// CSS
-	function setcssSkin_styles_method() {
-		wp_register_style('setCssStyleSkin', plugins_url('css/codemirror.css', __FILE__));
-		wp_enqueue_style('setCssStyleSkin');
-	}
-	add_action('admin_enqueue_scripts', 'setcssSkin_styles_method');
-
-	function dialog_styles_method() {
-		wp_register_style('dialogStyle', plugins_url('css/dialog.css', __FILE__));
-		wp_enqueue_style('dialogStyle');
-	}
-	add_action('admin_enqueue_scripts', 'dialog_styles_method');
-
-	function fullscreen_styles_method() {
-		wp_register_style('fullscreenStyle', plugins_url('css/fullscreen.css', __FILE__));
-		wp_enqueue_style('fullscreenStyle');
-	}
-	add_action('admin_enqueue_scripts', 'fullscreen_styles_method');
-
-	function ambiance_styles_method() {
-		wp_register_style('ambiance', plugins_url('css/solarized.css', __FILE__));
-		wp_enqueue_style('ambiance');
-	}
-	add_action('admin_enqueue_scripts', 'ambiance_styles_method');
-
-	// Util
-	function setcss_styles_method() {
-		wp_register_style('setCssStyle', plugins_url('util/style.css', __FILE__), [], CssPlus::Version);
-		wp_enqueue_style('setCssStyle');
-	}
-	add_action('admin_enqueue_scripts', 'setcss_styles_method');
-
-}
 
