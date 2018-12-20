@@ -3,7 +3,7 @@
 Plugin Name: CSS Plus
 Plugin URI: http://pauloklixto.com/2012/07/16/css-plus-wordpress-plugin-2/
 Description: Add CSS box in your specific pages, posts or custom posts.
-Version: 1.5.2
+Version: 2.0.0
 Author: Paulo E. Calixto
 Author URI: http://pauloklixto.com
 License: GPL2
