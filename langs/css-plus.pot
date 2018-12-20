@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the CSS Plus plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: CSS Plus 1.5.2\n"
+"Project-Id-Version: CSS Plus 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/CSS-Plus\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2018-12-16T08:52:35+00:00\n"
-"PO-Revision-Date: 2018-12-16T08:52:35+00:00\n"
+"POT-Creation-Date: 2018-12-20T05:50:16+00:00\n"
+"PO-Revision-Date: 2018-12-20T05:50:16+00:00\n"
 "X-Generator: WP-CLI 2.0.1\n"
 "X-Domain: css-plus\n"
 
@@ -34,14 +34,14 @@ msgstr ""
 msgid "http://pauloklixto.com"
 msgstr ""
 
-#: css-plus.php:88
+#: css-plus.php:106
 msgid "CSS Editor"
 msgstr ""
 
-#: css-plus.php:104
+#: css-plus.php:122
 msgid "Insert your CSS code here"
 msgstr ""
 
-#: css-plus.php:134
+#: css-plus.php:123
 msgid "Press Crtl+f or CMD+f to search."
 msgstr ""
