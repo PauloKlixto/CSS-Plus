@@ -27,9 +27,9 @@ Domain Path: /langs
 
 class CssPlus {
 
-	const Version = '1.5.2';
+	const Version = '2.0.0';
 
-	const CodeMirrorVersion = '5.26.0';
+	const CodeMirrorVersion = '5.42.0';
 
 	const metaKey = '_css_code';
 
@@ -51,21 +51,21 @@ class CssPlus {
 	}
 
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script('css-plus-js', plugins_url('js/codemirror.js', __FILE__), [], CssPlus::CodeMirrorVersion);
-		wp_enqueue_script('css-plus-css', plugins_url('js/css.js', __FILE__));
-		wp_enqueue_script('css-plus-dialog', plugins_url('js/dialog.js', __FILE__));
-		wp_enqueue_script('css-plus-fullscreen', plugins_url('js/fullscreen.js', __FILE__));
-		wp_enqueue_script('css-plus-placeholder', plugins_url('js/placeholder.js', __FILE__));
-		wp_enqueue_script('css-plus-dft', plugins_url('js/search.js', __FILE__));
-		wp_enqueue_script('css-plus-searchcursor', plugins_url('js/searchcursor.js', __FILE__));
-		wp_enqueue_script('css-plus-sublime', plugins_url('js/sublime.js', __FILE__));
-		wp_enqueue_script('css-plus-trailingspace', plugins_url('js/trailingspace.js', __FILE__));
+		$url = plugins_url('', __FILE__) . '/';
 
-		wp_enqueue_style('css-plus-codemirror', plugins_url('css/codemirror.css', __FILE__));
-		wp_enqueue_style('css-plus-dialog-style', plugins_url('css/dialog.css', __FILE__));
-		wp_enqueue_style('css-plus-fullscreen-style', plugins_url('css/fullscreen.css', __FILE__));
-		wp_enqueue_style('css-plus-solarized', plugins_url('css/solarized.css', __FILE__));
-		wp_enqueue_style('css-plus-style', plugins_url('util/style.css', __FILE__), [], CssPlus::Version);
+		wp_enqueue_script('css-plus-codemirror-js', $url . 'codemirror/codemirror.min.js', [], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-mode-css', $url . 'codemirror/css.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-placeholder', $url . 'codemirror/placeholder.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-search', $url . 'codemirror/search.min.js', ['css-plus-searchcursor'], CssPlus::CodeMirrorVersion);
+		wp_enqueue_script('css-plus-searchcursor', $url . 'codemirror/searchcursor.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-trailingspace', $url . 'codemirror/trailingspace.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-active-line', $url . 'codemirror/active-line.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-autorefresh', $url . 'codemirror/autorefresh.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
+		wp_enqueue_script('css-plus-admin', $url . 'admin.js', ['css-plus-codemirror-js'], CssPlus::Version, true);
+
+		wp_enqueue_style('css-plus-codemirror-style', $url . 'codemirror/codemirror.min.css');
+		wp_enqueue_style('css-plus-neo-theme', $url . 'codemirror/neo.css', [], CssPlus::Version);
+		wp_enqueue_style('css-plus-style', $url . 'admin.css', [], CssPlus::Version);
 	}
 
 	/**
@@ -121,23 +121,6 @@ class CssPlus {
 		wp_nonce_field(plugin_basename(__FILE__), 'css_code_nonce');
 		$postCSS = get_post_meta($post->ID, CssPlus::metaKey, true); ?>
 		<textarea id="css-plus-code" name="css_code" placeholder="<?php _e('Insert your CSS code here', 'css-plus'); ?>"><?php echo $postCSS; ?></textarea>
-		<script>
-			(function() {
-				const editor = CodeMirror.fromTextArea(document.getElementById("css-plus-code"), {
-					keyMap: "sublime",
-					lineNumbers: true,
-					fullscreen: true,
-					mode: "text/x-scss",
-					theme: "solarized dark",
-					lineWrapping: true,
-					onCursorActivity: function() {
-						editor.setLineClass(hlLine, null, null);
-						hlLine = editor.setLineClass(editor.getCursor().line, null, "activeline");
-					}
-				});
-				editor.addLineClass(0, "background", "activeline");
-			})();
-		</script>
 		<p class="more"><?php echo __('Press Crtl+f or CMD+f to search.', 'css-plus'); ?></p>
 		<?php
 	}

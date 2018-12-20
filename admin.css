@@ -1,17 +1,19 @@
-#css_plus_plugin .inside, #css_plus_plugin .inside p, #css_plus_plugin .menu {
+#css_plus_plugin .inside {
 	margin: 0;
 	padding: 0;
 }
-.CodeMirror {
-	border: 1px solid #ACACAC;
+
+#css_plus_plugin .CodeMirror {
+	border: 1px solid #e2e4e7;
 	border-radius: 0;
-	box-shadow: none !important;
 }
+
 .CodeMirror-dialog {
 	background: #586E75;
 	color: #fff;
 	border-bottom: 1px solid #586E75;
 }
+
 #css_plus_plugin .inside .more {
 	padding: 5px 8px;
 }
