@@ -58,7 +58,6 @@ class CssPlus {
 		wp_enqueue_script('css-plus-placeholder', $url . 'codemirror/placeholder.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
 		wp_enqueue_script('css-plus-search', $url . 'codemirror/search.min.js', ['css-plus-searchcursor'], CssPlus::CodeMirrorVersion);
 		wp_enqueue_script('css-plus-searchcursor', $url . 'codemirror/searchcursor.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
-		wp_enqueue_script('css-plus-trailingspace', $url . 'codemirror/trailingspace.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
 		wp_enqueue_script('css-plus-active-line', $url . 'codemirror/active-line.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
 		wp_enqueue_script('css-plus-autorefresh', $url . 'codemirror/autorefresh.min.js', ['css-plus-codemirror-js'], CssPlus::CodeMirrorVersion, true);
 		wp_enqueue_script('css-plus-admin', $url . 'admin.js', ['css-plus-codemirror-js'], CssPlus::Version, true);
