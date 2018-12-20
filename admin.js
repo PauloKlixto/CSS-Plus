@@ -11,4 +11,7 @@
 		indentUnit: 4,
 		indentWithTabs: true
 	});
+	editor.on("changes", function(inst) {
+		ta.value = inst.getValue();
+	});
 })();
